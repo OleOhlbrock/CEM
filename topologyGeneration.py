@@ -166,14 +166,15 @@ if trailMembers and trailMembersID:
         for id0_ExtForce in externalForcesID:
             str1_ExtForceAtt = []
             if type(id0_ExtForce) is str:
-                str1_ExtForceAtt = literal_eval(id0_ExtForce)
+                print id0_ExtForce
+                str1_ExtForceAtt = literal_eval(id0_ExtForce.replace("^", ""))
             elif type(id0_ExtForce) is System.Guid:
                 obj0_ExtForceAtt = Rhino.DocObjects.ObjRef(id0_ExtForce)
                 str0_ExtForceAtt = obj0_ExtForceAtt.Object().Attributes.Name
                 if str0_ExtForceAtt: 
                     str1_ExtForceAttEv = (('0','0','-1'))
                     try:
-                        str1_ExtForceAttEv = literal_eval(str0_ExtForceAtt)
+                        str1_ExtForceAttEv = literal_eval(str0_ExtForceAtt.replace("^", ""))
                     except:
                         str2_ExtForceAtt.append(('0','0','-1'))
                     if isinstance(str1_ExtForceAttEv, tuple) and len(str1_ExtForceAttEv) == 3:
