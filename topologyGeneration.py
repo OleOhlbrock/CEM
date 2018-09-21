@@ -37,7 +37,7 @@ import System.Drawing.Color
 import System.Guid
 import Rhino
 from ast import literal_eval
-int0_T = 0.00001
+int0_T = 0.1
 
 from _ast import *
 from _ast import __version__
@@ -280,15 +280,18 @@ if trailMembers and trailMembersID:
         
         # Check supports
         pt1_SupportClean = []
-        for pln0_Trail in pln1_Trail:
-            if pln0_Trail[0] in supports:
-                pt1_SupportClean.append(pln0_Trail[0])
-                pln0_Trail.Reverse()
+        for j in xrange(len(pln1_Trail)):
+            if supports:
+                pt1_SupportClean.append(pln1_Trail[j][len(pln1_Trail[j])-1])
+                for i in xrange(len(supports)):
+                    if abs(pln1_Trail[j][0].X - supports[i].X) < int0_T and abs(pln1_Trail[j][0].Y - supports[i].Y) < int0_T and abs(pln1_Trail[j][0].Z - supports[i].Z) < int0_T:
+                        pt1_SupportClean[j] = pln1_Trail[j][0]
+                        pln1_Trail[j].Reverse()
             else:
-                pt1_SupportClean.append(pln0_Trail[len(pln0_Trail)-1])
-        
+                pt1_SupportClean.append(pln1_Trail[j][len(pln1_Trail[j])-1])
         supports = pt1_SupportClean
         
+        print len(supports)
         
         # Find Node Indexes of supports
         int1_Support = []
