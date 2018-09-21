@@ -25,7 +25,7 @@ If you use the library of CEM in a project, please refer to the CEM GitHub repos
 @misc{cem-dev,
     title  = {{CEM}: Combinatorial Equilibrium Modeling},
     author = {Patrick Ole Ohlbrock and Pierluigi D'Acunto},
-    note   = {http://cem-dev.github.io/cem/},
+    note   = {https://github.com/OleOhlbrock/CEM},
     year   = {2018},
 }
 """
@@ -166,7 +166,6 @@ if trailMembers and trailMembersID:
         for id0_ExtForce in externalForcesID:
             str1_ExtForceAtt = []
             if type(id0_ExtForce) is str:
-                print id0_ExtForce
                 str1_ExtForceAtt = literal_eval(id0_ExtForce.replace("^", ""))
             elif type(id0_ExtForce) is System.Guid:
                 obj0_ExtForceAtt = Rhino.DocObjects.ObjRef(id0_ExtForce)
@@ -291,7 +290,6 @@ if trailMembers and trailMembersID:
                 pt1_SupportClean.append(pln1_Trail[j][len(pln1_Trail[j])-1])
         supports = pt1_SupportClean
         
-        print len(supports)
         
         # Find Node Indexes of supports
         int1_Support = []

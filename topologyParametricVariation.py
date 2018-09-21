@@ -21,7 +21,7 @@ If you use the library of CEM in a project, please refer to the CEM GitHub repos
 @misc{cem-dev,
     title  = {{CEM}: Combinatorial Equilibrium Modeling},
     author = {Patrick Ole Ohlbrock and Pierluigi D'Acunto},
-    note   = {http://cem-dev.github.io/cem/},
+    note   = {https://github.com/OleOhlbrock/CEM},
     year   = {2018},
 }
 """
