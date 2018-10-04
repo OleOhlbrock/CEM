@@ -39,9 +39,6 @@ import Rhino
 from ast import literal_eval
 int0_T = 0.1
 
-from _ast import *
-from _ast import __version__
-
 class topology(object):
     def __repr__(self):
         return self.ToString()
@@ -75,7 +72,42 @@ def ListListToList(xx2_Data):
     return xx1_DataOut
 
 
-T = topology()
+TP = topology()
+
+
+externalForces = []
+externalForcesID = []
+if L:
+    for l in L:
+        if l:
+            externalForces.extend(l.geom)
+            externalForcesID.extend(l.magn)
+
+
+trailMembers = []
+trailMembersID = []
+if T:
+    for t in T:
+        if t:
+            trailMembers.extend(t.geom)
+            trailMembersID.extend(t.len)
+
+
+deviationMembers = []
+deviationMembersID = []
+if D:
+    for d in D:
+        if d:
+            deviationMembers.extend(d.geom)
+            deviationMembersID.extend(d.magn)
+
+supports = []
+if S:
+    for s in S:
+        if s:
+            supports.extend(s.geom)
+
+
 
 if trailMembers and trailMembersID:
     if len(trailMembers) == len(trailMembersID) and len(deviationMembers) == len(deviationMembersID) and len(externalForces) == len(externalForcesID):
@@ -161,63 +193,20 @@ if trailMembers and trailMembersID:
         
         
         # Extract Attributes External Forces
-        str2_ExtForceAtt = []
-        
-        for id0_ExtForce in externalForcesID:
-            str1_ExtForceAtt = []
-            if type(id0_ExtForce) is str:
-                str1_ExtForceAtt = literal_eval(id0_ExtForce.replace("^", ""))
-            elif type(id0_ExtForce) is System.Guid:
-                obj0_ExtForceAtt = Rhino.DocObjects.ObjRef(id0_ExtForce)
-                str0_ExtForceAtt = obj0_ExtForceAtt.Object().Attributes.Name
-                if str0_ExtForceAtt: 
-                    str1_ExtForceAttEv = (('0','0','-1'))
-                    try:
-                        str1_ExtForceAttEv = literal_eval(str0_ExtForceAtt.replace("^", ""))
-                    except:
-                        str2_ExtForceAtt.append(('0','0','-1'))
-                    if isinstance(str1_ExtForceAttEv, tuple) and len(str1_ExtForceAttEv) == 3:
-                        str1_ExtForceAtt = str1_ExtForceAttEv
-                    else:
-                        str2_ExtForceAtt.append(('0','0','-1'))
-                else:
-                    str2_ExtForceAtt.append(('0','0','-1'))
-            else:
-                str2_ExtForceAtt.append(('0','0','-1'))
-            if str1_ExtForceAtt:
-                str1_ExtForceAttC = []
-                for i in xrange(len(str1_ExtForceAtt)):
-                    str1_ExtForceAttC.append(str(str1_ExtForceAtt[i]))
-                str2_ExtForceAtt.append(tuple(str1_ExtForceAttC))
-        
-        
+        st2_externalForcesID = []
+        for i in range(len(externalForcesID)):
+            st1_externalForcesID = []
+            for j in range(len(externalForcesID[i])):
+                st1_externalForcesID.append(str(externalForcesID[i][j]))
+            st2_externalForcesID.append(st1_externalForcesID)
+        str2_ExtForceAtt = st2_externalForcesID
+
         # Extract Attributes trailMembers
-        str1_TrailAtt = []
-        
-        for id0_Trail in trailMembersID:
-            if type(id0_Trail) is str:
-                str0_TrailAtt = id0_Trail
-            else:
-                obj0_TrailAtt = Rhino.DocObjects.ObjRef(id0_Trail)
-                str0_TrailAtt = obj0_TrailAtt.Object().Attributes.Name
-            if str0_TrailAtt:
-                str1_TrailAtt.append(str0_TrailAtt)
-            else:
-                str1_TrailAtt.append("1")
-        
+        str1_TrailAtt = [str(x) for x in trailMembersID]
+
         # Extract Attributes Deviation
-        str1_DeviationAtt = []
+        str1_DeviationAtt = [str(x) for x in deviationMembersID]
         
-        for id0_Deviation in deviationMembersID:
-            if type(id0_Deviation) is str:
-                str0_DeviationAtt = id0_Deviation
-            else:
-                obj0_DeviationAtt = Rhino.DocObjects.ObjRef(id0_Deviation)
-                str0_DeviationAtt = obj0_DeviationAtt.Object().Attributes.Name
-            if str0_DeviationAtt:
-                str1_DeviationAtt.append(str0_DeviationAtt)
-            else:
-                str1_DeviationAtt.append("1")
         
         # Create Dictionary of trailMembers' Ends
         dc2_TrailEnds = {}
@@ -619,15 +608,39 @@ if trailMembers and trailMembersID:
         
         
         
-        T.str1_StructuralBehaviourOut = str1_StructuralBehaviourOut
-        T.str1_DeviationIndirectOut = str1_DeviationIndirectOut
-        T.pt1_NodeOut = pt1_NodeOut
-        T.str1_NodeOut = str1_NodeOut
-        T.crv1_EdgeOut = crv1_EdgeOut
-        T.pt1_EdgeOut = pt1_EdgeOut
-        T.str1_EdgeOut = str1_EdgeOut
-        T.str1_NodeOrderOut = str1_NodeOrderOut
-        T.pl1_ConstraintPlaneOut = pl1_ConstraintPlaneOut
-        T.int1_ConstraintPlaneOut = int1_ConstraintPlaneOut
-        T.pt1_OriginNodeOut = pt1_OriginNodeOut
+        TP.str1_StructuralBehaviourOut = str1_StructuralBehaviourOut
+        TP.str1_DeviationIndirectOut = str1_DeviationIndirectOut
+        TP.pt1_NodeOut = pt1_NodeOut
+        TP.str1_NodeOut = str1_NodeOut
+        TP.crv1_EdgeOut = crv1_EdgeOut
+        TP.pt1_EdgeOut = pt1_EdgeOut
+        TP.str1_EdgeOut = str1_EdgeOut
+        TP.str1_NodeOrderOut = str1_NodeOrderOut
+        TP.pl1_ConstraintPlaneOut = pl1_ConstraintPlaneOut
+        TP.int1_ConstraintPlaneOut = int1_ConstraintPlaneOut
+        TP.pt1_OriginNodeOut = pt1_OriginNodeOut
 
+
+def StringToFloat(val):
+    try:
+        return float(val)
+    except (ValueError, TypeError):
+        return 1.0
+
+if TP and hasattr(TP, "str1_StructuralBehaviourOut"):
+    str1_StructuralBehaviour = TP.str1_StructuralBehaviourOut[:]
+    str1_DeviationIndirect = TP.str1_DeviationIndirectOut[:]
+    db1_StructuralBehaviour = []
+    db1_DeviationIndirect = []
+        
+    for i in xrange(len(str1_StructuralBehaviour)):
+        db1_StructuralBehaviour.append(StringToFloat(str1_StructuralBehaviour[i]))
+    
+    for i in xrange(len(str1_DeviationIndirect)):
+        db1_DeviationIndirect.append(StringToFloat(str1_DeviationIndirect[i]))
+
+    del TP.str1_StructuralBehaviourOut
+    del TP.str1_DeviationIndirectOut
+    
+    TP.db1_StructuralBehaviourOut = db1_StructuralBehaviour
+    TP.db1_DeviationIndirectOut = db1_DeviationIndirect

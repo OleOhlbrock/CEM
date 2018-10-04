@@ -1,7 +1,7 @@
 """
 Calculate the structural model
     Inputs:
-        TMC: (topological diagram) The topological diagram used for the calculation of the structural model
+        TPC: (topological diagram) The topological diagram used for the calculation of the structural model
         selfWeight: (bool) Activate the self weight of the structure
         yieldStress: (double) The yield stress of the structural members
         specWeight: (double) The specific weight of the structural members
@@ -44,7 +44,7 @@ class model(object):
         return self.ToString()
         
     def ToString(self):
-        if TMC:
+        if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
             str0_Description = ""
             if int0_LayerCount:
                 str0_Description += "Structural Model\n\nlayers: " + str(int0_LayerCount)
@@ -59,14 +59,8 @@ class model(object):
                     return "Empty Structural Model"
             else:
                 return "Empty Structural Model"
-
-"""
-    def ToString(self):
-        if hasattr(self, "pt1_GlobNodeOut") and pt1_GlobNodeOut:
-            return "Model with " + str(len(pt1_GlobNodeOut)) + " nodes"
-        return "Empty model"
-"""
-
+        else:
+            return "Empty Structural Model"
 
 
 ### AUXILIARY FUNCTIONS
@@ -99,22 +93,45 @@ def DataTreeToListList(dt2_Data):
     return xx2_DataOut
 
 
+
+import copy
+TPC = copy.deepcopy(TP)
+
+if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
+    if constraintPlane and constraintPlane:
+        if len(constraintPlane) == len(constraintPlane):
+            TPC.pl1_ConstraintPlaneOut = constraintPlane
+            TPC.int1_ConstraintPlaneOut = constraintPlaneID
+        else:
+            TPC.pl1_ConstraintPlaneOut = None
+            TPC.int1_ConstraintPlaneOut = None
+    else:
+        TPC.pl1_ConstraintPlaneOut = None
+        TPC.int1_ConstraintPlaneOut = None
+    
+    if originNode:
+        if len(originNode) == len(TP.pt1_OriginNodeOut):
+            TPC.pt1_OriginNodeOut = originNode
+
+
+
+
+
+
+
 M = model()
 
-if TMC and hasattr(TMC, "db1_StructuralBehaviourOut"):
+if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
     
-    db1_StructuralBehaviour = TMC.db1_StructuralBehaviourOut
-    str1_NodeOrderC = TMC.str1_NodeOrderOut
-    xx1_Bracing = TMC.db1_DeviationIndirectOut
-    pl1_ConstraintPlane = TMC.pl1_ConstraintPlaneOut
-    id_NodePlane = TMC.int1_ConstraintPlaneOut
-    pt1_OriginNode = TMC.pt1_OriginNodeOut
-    str1_Edge = TMC.str1_EdgeOut
-    
+    db1_StructuralBehaviour = TPC.db1_StructuralBehaviourOut
+    str1_NodeOrderC = TPC.str1_NodeOrderOut
+    xx1_Bracing = TPC.db1_DeviationIndirectOut
+    pl1_ConstraintPlane = TPC.pl1_ConstraintPlaneOut
+    id_NodePlane = TPC.int1_ConstraintPlaneOut
+    pt1_OriginNode = TPC.pt1_OriginNodeOut
+    str1_Edge = TPC.str1_EdgeOut
     
 
-    
-    
     ### GLOBAL VARIABLES
     
     # Counters and Tolerance
@@ -629,3 +646,4 @@ if TMC and hasattr(TMC, "db1_StructuralBehaviourOut"):
                     M.db1_GlobExtFOEdgeOut = db1_GlobExtFOEdgeOut
                     M.str1_NodeOrderOut = str1_NodeOrderC
                     M.str1_EdgeOut = str1_Edge
+
