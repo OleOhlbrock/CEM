@@ -6,7 +6,7 @@ CEM is a novel approach for the form-finding of spatial equilibrium networks for
 <br/>
 If you use the library of CEM in a project, please refer to the CEM GitHub repository:
 @misc{cem-dev,
-    title  = {{CEM}: Combinatorial Equilibrium Modeling},
+    title  = {{CEM}: Combinatorial Equilibrium Modeling},<br/>
     author = {Patrick Ole Ohlbrock and Pierluigi D'Acunto},
     note   = {https://github.com/OleOhlbrock/CEM},
     year   = {2018},
