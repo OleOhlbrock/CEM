@@ -2,7 +2,10 @@
 Combinatorial Equilibrium Modelling
 
 CEM is a novel approach for the form-finding of spatial equilibrium networks for given topologies and inner force constellations (compression/tension). It is developed by Patrick Ole Ohlbrock and Pierluigi D'Acunto at the chair of structural design at the ETH Zürich.
+
 <br/>
+<br/>
+
 If you use the library of CEM in a project, please refer to the CEM GitHub repository:
 @misc{cem-dev,
     title  = {{CEM}: Combinatorial Equilibrium Modeling},
