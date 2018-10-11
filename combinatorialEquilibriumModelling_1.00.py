@@ -296,9 +296,8 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
             for i in xrange(g*int0_TrailNumber,(g+1)*int0_TrailNumber):
                 db1_DevForceMag = []
                 for j in xrange(3,int0_TrailNumber+3):
-                    db1_DevForceMag.append(db2_StructuralBehaviour[i][j])
+                    db1_DevForceMag.append((db2_StructuralBehaviour[i][j]))
                 db2_DevForceMag.append(db1_DevForceMag)
-            
             # Create Trail Length and Static Action Matrix from Input Origin Points
             db1_TrailLength = []
             db1_TrailStatAct = []
@@ -611,7 +610,7 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
                             cl1_Deviation2Edge.append(System.Drawing.Color.Blue)
                         else:
                             cl1_Deviation2Edge.append(System.Drawing.Color.Black)
-                        db1_Deviation2Edge.append(xx1_Bracing[i+2])
+                        db1_Deviation2Edge.append(abs(xx1_Bracing[i+2]))
     
                     ### OUTMUT
     
