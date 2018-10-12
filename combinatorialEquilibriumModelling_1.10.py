@@ -15,7 +15,7 @@ __author__    = ['Patrick Ole Ohlbrock','Pierluigi D''Acunto' ]
 __copyright__ = 'Copyright 2018 - Chair of Structural Design, ETH Zurich'
 __license__   = 'MIT License'
 __email__     = 'ohlbrock@arch.ethz.ch'
-__version__   = "1.00"
+__version__   = "1.10"
 
 """
 If you use the library of CEM in a project, please refer to the CEM GitHub repository:
@@ -94,12 +94,28 @@ def DataTreeToListList(dt2_Data):
 
 
 
+constraintPlane = []
+constraintPlaneID = []
+
+if CPL:
+    constraintPlane = CPL.constraintPlane
+    constraintPlaneID = CPL.constraintPlaneID
+
+
+yieldStress = None
+specWeight = None
+
+if SW and hasattr(SW, "yieldStress") and hasattr(SW, "specWeight"):
+    yieldStress = SW.yieldStress
+    specWeight = SW.specWeight
+
+
 import copy
 TPC = copy.deepcopy(TP)
 
 if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
-    if constraintPlane and constraintPlane:
-        if len(constraintPlane) == len(constraintPlane):
+    if len(constraintPlane) > 0:
+        if len(constraintPlane) == len(constraintPlaneID):
             TPC.pl1_ConstraintPlaneOut = constraintPlane
             TPC.int1_ConstraintPlaneOut = constraintPlaneID
         else:
@@ -109,10 +125,9 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
         TPC.pl1_ConstraintPlaneOut = None
         TPC.int1_ConstraintPlaneOut = None
     
-    if originNode:
-        if len(originNode) == len(TP.pt1_OriginNodeOut):
-            TPC.pt1_OriginNodeOut = originNode
-
+    if N:
+        if len(N.originNode) == len(TP.pt1_OriginNodeOut):
+            TPC.pt1_OriginNodeOut = N.originNode
 
 
 
@@ -139,6 +154,8 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
     db0_Divergence = float("inf")
     db0_Threshold = 1e-10
     int0_CounterBracing = 100
+    
+    if len(xx1_Bracing) == 0: int0_CounterBracing = 1
     
     int0_TrailNumber = len(pt1_OriginNode)  # input nodes
     int0_C = 3+int0_TrailNumber+1
@@ -237,36 +254,38 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
                 
                 # Add Magnitudes of Bracing Forces as External Forces
                 # Start node of bracing
-                if int0_Counter != 0:
-                    for j in xrange(0,len(xx1_Bracing),3):
-                        int0_BracingFromLayerIndex = int(xx1_Bracing[j]) // int0_TrailNumber
-                        if i == int(xx1_Bracing[j]):
-                            pt0_BracingFrom = pt2_GlobNodeIteration[g][i-g*int0_TrailNumber]
-                            int0_BracingToLayerIndex = int(xx1_Bracing[j+1]) // int0_TrailNumber
-                            int0_BracingToTrailIndex = int(xx1_Bracing[j+1]) % int0_TrailNumber
-                            pt0_BracingTo = pt2_GlobNodeIteration[int0_BracingToLayerIndex][int0_BracingToTrailIndex]
-                            vc0_ForceA = rh.Vector3d(pt0_BracingTo-pt0_BracingFrom)
-                            rh.Vector3d.Unitize(vc0_ForceA)
-                            vc0_ForceA = float(xx1_Bracing[j+2])*vc0_ForceA
-                            db1_ExtForceX[i-g*int0_TrailNumber] += vc0_ForceA.X
-                            db1_ExtForceY[i-g*int0_TrailNumber] += vc0_ForceA.Y
-                            db1_ExtForceZ[i-g*int0_TrailNumber] += vc0_ForceA.Z
+                if len(xx1_Bracing) > 0:
+                    if int0_Counter != 0 :
+                        for j in xrange(0,len(xx1_Bracing),3):
+                            int0_BracingFromLayerIndex = int(xx1_Bracing[j]) // int0_TrailNumber
+                            if i == int(xx1_Bracing[j]):
+                                pt0_BracingFrom = pt2_GlobNodeIteration[g][i-g*int0_TrailNumber]
+                                int0_BracingToLayerIndex = int(xx1_Bracing[j+1]) // int0_TrailNumber
+                                int0_BracingToTrailIndex = int(xx1_Bracing[j+1]) % int0_TrailNumber
+                                pt0_BracingTo = pt2_GlobNodeIteration[int0_BracingToLayerIndex][int0_BracingToTrailIndex]
+                                vc0_ForceA = rh.Vector3d(pt0_BracingTo-pt0_BracingFrom)
+                                rh.Vector3d.Unitize(vc0_ForceA)
+                                vc0_ForceA = float(xx1_Bracing[j+2])*vc0_ForceA
+                                db1_ExtForceX[i-g*int0_TrailNumber] += vc0_ForceA.X
+                                db1_ExtForceY[i-g*int0_TrailNumber] += vc0_ForceA.Y
+                                db1_ExtForceZ[i-g*int0_TrailNumber] += vc0_ForceA.Z
                             
                 # End node of bracing
-                if int0_Counter != 0:
-                    for j in xrange(1,len(xx1_Bracing),3):
-                        int0_BracingFromLayerIndex = int(xx1_Bracing[j]) // int0_TrailNumber
-                        if i == int(xx1_Bracing[j]):
-                            pt0_BracingFrom = pt2_GlobNodeIteration[g][i-g*int0_TrailNumber]
-                            int0_BracingToLayerIndex = int(xx1_Bracing[j-1]) // int0_TrailNumber
-                            int0_BracingToTrailIndex = int(xx1_Bracing[j-1]) % int0_TrailNumber
-                            pt0_BracingTo = pt2_GlobNodeIteration[int0_BracingToLayerIndex][int0_BracingToTrailIndex]
-                            vc0_ForceA = rh.Vector3d(pt0_BracingTo-pt0_BracingFrom)
-                            rh.Vector3d.Unitize(vc0_ForceA)
-                            vc0_ForceA = float(xx1_Bracing[j+1])*vc0_ForceA
-                            db1_ExtForceX[i-g*int0_TrailNumber] += vc0_ForceA.X
-                            db1_ExtForceY[i-g*int0_TrailNumber] += vc0_ForceA.Y
-                            db1_ExtForceZ[i-g*int0_TrailNumber] += vc0_ForceA.Z
+                if len(xx1_Bracing) > 0:
+                    if int0_Counter != 0:
+                        for j in xrange(1,len(xx1_Bracing),3):
+                            int0_BracingFromLayerIndex = int(xx1_Bracing[j]) // int0_TrailNumber
+                            if i == int(xx1_Bracing[j]):
+                                pt0_BracingFrom = pt2_GlobNodeIteration[g][i-g*int0_TrailNumber]
+                                int0_BracingToLayerIndex = int(xx1_Bracing[j-1]) // int0_TrailNumber
+                                int0_BracingToTrailIndex = int(xx1_Bracing[j-1]) % int0_TrailNumber
+                                pt0_BracingTo = pt2_GlobNodeIteration[int0_BracingToLayerIndex][int0_BracingToTrailIndex]
+                                vc0_ForceA = rh.Vector3d(pt0_BracingTo-pt0_BracingFrom)
+                                rh.Vector3d.Unitize(vc0_ForceA)
+                                vc0_ForceA = float(xx1_Bracing[j+1])*vc0_ForceA
+                                db1_ExtForceX[i-g*int0_TrailNumber] += vc0_ForceA.X
+                                db1_ExtForceY[i-g*int0_TrailNumber] += vc0_ForceA.Y
+                                db1_ExtForceZ[i-g*int0_TrailNumber] += vc0_ForceA.Z
             
             # Vector sum of external and bracing forces for the equilibrium calculation
             vc1_ExtForce = []
@@ -341,7 +360,7 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
                 db1_DevStatActSum.append(db0_DevStatActSum)
             # Get Static Action per Node for Indirect Deviations
             # Start Node of Inderect Deviations
-            if selfWeight and specWeight and yieldStress:
+            if specWeight and yieldStress and len(xx1_Bracing) >0:
                 int1_StartBracingIndex = []
                 int1_EndBracingIndex = []
                 db1_BracingValue = []
@@ -407,14 +426,14 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
                                 db0_IndDevStatActSum += abs(db0_ValueBracingGlobIndex*pt0_StartBracing.DistanceTo(pt0_EndBracing))
                         db1_IndDevStatActSum[i] += db0_IndDevStatActSum
             else:
-                db1_IndDevStatActSum = 0
+                db1_IndDevStatActSum = [0.0 for i in range(int0_TrailNumber)]
             # Construct Equilibrium per each Node
             vc1_TrailForceOut = []
             vc1_SelfWeight = []
             for i in xrange(int0_TrailNumber):
-                if int0_Counter == 0:
+                if len(xx1_Bracing) > 0 and int0_Counter == 0:
                     db1_IndDevStatActSum = [0.0 for i in range(int0_TrailNumber)]
-                if selfWeight and specWeight and yieldStress:
+                if specWeight and yieldStress:
                     vc0_SelfWeight = rh.Vector3d(((db1_TrailStatAct[i] + db1_DevStatActSum[i]/2 + db1_IndDevStatActSum[i]/2 )*specWeight/yieldStress)*(-rh.Vector3d.ZAxis))
                     vc0_TrailForceOut = -(vc1_ExtForce[i] + vc1_DevForceSum[i] + vc1_TrailForceIn[i] + vc0_SelfWeight)
                     vc1_TrailForceOut.append(vc0_TrailForceOut)
@@ -514,7 +533,7 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
         
         # Add Reactions to Form Diagram
         for i in xrange(len(vc2_GlobTrailForce[g-1])):
-            if selfWeight and specWeight and yieldStress:
+            if specWeight and yieldStress:
                 vc0_SelfWeight = (abs(vc2_GlobTrailForce[g-1][i].Length*ln2_GlobTrailEdge[g-1][i].Length)*specWeight/yieldStress)*(-rh.Vector3d.ZAxis)
                 if cl2_GlobTrailEdge[g-1][i] != System.Drawing.Color.Blue:
                     ln1_ExtFOEdge.append(rh.Line(pt2_GlobNode[g-1][i],(pt2_GlobNode[g-1][i] + vc2_GlobTrailForce[g-1][i] + vc0_SelfWeight)))
@@ -552,13 +571,16 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
         if len(pt1_OriginNode) == 0:
             print(str("Please input Origin Points"))
         else:
-            print("Iteration report")
-    
+            str0_Description = ""
+            str0_Description += "Iteration report"
+            
             # Start Iteration
             while int0_Counter < int0_CounterBracing and db0_Divergence > db0_Threshold:
                 
                 # Call Main Function
                 Main(db1_StructuralBehaviour, xx1_Bracing, pt1_OriginNode, pl1_ConstraintPlane)
+                
+                
                 
                 # Store Nodes' Position
                 pt2_GlobNodeIteration[0] = pt1_OriginNode
@@ -569,9 +591,10 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
                             db0_Divergence += pt2_GlobNode[j-1][k].DistanceTo(pt2_GlobNodeIteration[j][k])
                     pt2_GlobNodeIteration[j] = pt2_GlobNode[j-1]
                 
-                print(str(int0_Counter))
-                print(str(db0_Divergence))
-                print(str("______"))
+                str0_Description += "\n\niteration N: " + str(int0_Counter) + "\n"
+                if len(xx1_Bracing) == 0:
+                    db0_Divergence = 0.00
+                str0_Description += "divergence: " + str(db0_Divergence)
                 if int0_Counter < int0_CounterBracing and db0_Divergence > db0_Threshold:
                     # Re-Inatialize Global Variables
                     dbl0_Divergence = 0
@@ -590,7 +613,7 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
                     ln2_GlobExtFOEdge = []
                     cl2_GlobExtFOEdge = []
                     db2_GlobExtFOEdge = []
-    
+                
                 if int0_Counter == int0_CounterBracing or db0_Divergence < db0_Threshold:
                     
                     # Add Bracing
@@ -646,3 +669,4 @@ if TPC and hasattr(TPC, "db1_StructuralBehaviourOut"):
                     M.str1_NodeOrderOut = str1_NodeOrderC
                     M.str1_EdgeOut = str1_Edge
 
+            print str0_Description
