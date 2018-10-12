@@ -8,7 +8,7 @@ If you use the CEM library in a project, please refer to the GitHub repository: 
   author = {Ohlbrock, Patrick Ole and D'Acunto, Pierluigi},<br/>
   title  = {{CEM: Combinatorial Equilibrium Modeling}},<br/>
   year   = {2018},<br/>
-  note   = {Release 1.00},<br/>
+  note   = {Release 1.10},<br/>
   url    = { http://github.com/OleOhlbrock/CEM },<br/>
 }<br/>
 
