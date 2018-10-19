@@ -15,7 +15,7 @@ __author__    = ['Patrick Ole Ohlbrock','Pierluigi D''Acunto' ]
 __copyright__ = 'Copyright 2018 - Chair of Structural Design, ETH Zurich'
 __license__   = 'MIT License'
 __email__     = 'ohlbrock@arch.ethz.ch'
-__version__   = "1.10"
+__version__   = "1.20"
 
 """
 If you use the library of CEM in a project, please refer to the CEM GitHub repository:

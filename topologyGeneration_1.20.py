@@ -18,7 +18,7 @@ __author__    = ['Patrick Ole Ohlbrock','Pierluigi D''Acunto' ]
 __copyright__ = 'Copyright 2018 - Chair of Structural Design, ETH Zurich'
 __license__   = 'MIT License'
 __email__     = 'ohlbrock@arch.ethz.ch'
-__version__   = "1.10"
+__version__   = "1.20"
 
 """
 If you use the library of CEM in a project, please refer to the CEM GitHub repository:
@@ -36,8 +36,7 @@ If you use the library of CEM in a project, please refer to the CEM GitHub repos
 import System.Drawing.Color
 import System.Guid
 import Rhino
-from ast import literal_eval
-int0_T = 0.1
+db0_T = 0.001
 
 class topology(object):
     def __repr__(self):
@@ -126,7 +125,7 @@ if trailMembers and trailMembersID:
             pt0_Start = crv0_Trail.PointAtStart
             bl0_Check = False
             for i in xrange(len(pt1_Node)):
-                if abs(pt0_Start.X - pt1_Node[i].X) < int0_T and abs(pt0_Start.Y - pt1_Node[i].Y) < int0_T and abs(pt0_Start.Z - pt1_Node[i].Z) < int0_T:
+                if abs(pt0_Start.X - pt1_Node[i].X) < db0_T and abs(pt0_Start.Y - pt1_Node[i].Y) < db0_T and abs(pt0_Start.Z - pt1_Node[i].Z) < db0_T:
                     int1_Trail.append(i)
                     bl0_Check = True
                     break
@@ -136,7 +135,7 @@ if trailMembers and trailMembersID:
             pt0_End = crv0_Trail.PointAtEnd
             bl0_Check = False
             for i in xrange(len(pt1_Node)):
-                if abs(pt0_End.X - pt1_Node[i].X) < int0_T and abs(pt0_End.Y - pt1_Node[i].Y) < int0_T and abs(pt0_End.Z - pt1_Node[i].Z) < int0_T:
+                if abs(pt0_End.X - pt1_Node[i].X) < db0_T and abs(pt0_End.Y - pt1_Node[i].Y) < db0_T and abs(pt0_End.Z - pt1_Node[i].Z) < db0_T:
                     int1_Trail.append(i)
                     bl0_Check = True
                     break
@@ -145,6 +144,7 @@ if trailMembers and trailMembersID:
                 int1_Trail.append(len(pt1_Node)-1)
             int2_Trail.append(int1_Trail)
         
+
         # Deviation
         crv1_DeviationClean = []
         id1_DeviationClean = []
@@ -152,9 +152,9 @@ if trailMembers and trailMembersID:
             pt0_StartDeviation = deviationMembers[k].PointAtStart
             pt0_EndDeviation = deviationMembers[k].PointAtEnd
             for i in xrange(len(pt1_Node)):
-                if abs(pt0_StartDeviation.X - pt1_Node[i].X) < int0_T and abs(pt0_StartDeviation.Y - pt1_Node[i].Y) < int0_T and abs(pt0_StartDeviation.Z - pt1_Node[i].Z) < int0_T:
+                if abs(pt0_StartDeviation.X - pt1_Node[i].X) < db0_T and abs(pt0_StartDeviation.Y - pt1_Node[i].Y) < db0_T and abs(pt0_StartDeviation.Z - pt1_Node[i].Z) < db0_T:
                     for j in xrange(len(pt1_Node)):
-                        if abs(pt0_EndDeviation.X - pt1_Node[j].X) < int0_T and abs(pt0_EndDeviation.Y - pt1_Node[j].Y) < int0_T and abs(pt0_EndDeviation.Z - pt1_Node[j].Z) < int0_T:
+                        if abs(pt0_EndDeviation.X - pt1_Node[j].X) < db0_T and abs(pt0_EndDeviation.Y - pt1_Node[j].Y) < db0_T and abs(pt0_EndDeviation.Z - pt1_Node[j].Z) < db0_T:
                             crv1_DeviationClean.append(deviationMembers[k])
                             id1_DeviationClean.append(deviationMembersID[k])
                             int1_Deviation = []
@@ -174,14 +174,14 @@ if trailMembers and trailMembersID:
             pt0_EndExtForce = externalForces[k].To
             for i in xrange(len(pt1_Node)):
                 int1_ExtForce = []
-                if abs(pt0_StartExtForce.X - pt1_Node[i].X) < int0_T and abs(pt0_StartExtForce.Y - pt1_Node[i].Y) < int0_T and abs(pt0_StartExtForce.Z - pt1_Node[i].Z) < int0_T:
+                if abs(pt0_StartExtForce.X - pt1_Node[i].X) < db0_T and abs(pt0_StartExtForce.Y - pt1_Node[i].Y) < db0_T and abs(pt0_StartExtForce.Z - pt1_Node[i].Z) < db0_T:
                     ln1_ExtForceClean.append(externalForces[k])
                     External_Forces_IDClean.append(externalForcesID[k])
                     int1_ExtForce.append(i)
                     int2_ExtForce.append(int1_ExtForce)
                     break
             for j in xrange(len(pt1_Node)):
-                if abs(pt0_EndExtForce.X - pt1_Node[j].X) < int0_T and abs(pt0_EndExtForce.Y - pt1_Node[j].Y) < int0_T and abs(pt0_EndExtForce.Z - pt1_Node[j].Z) < int0_T:
+                if abs(pt0_EndExtForce.X - pt1_Node[j].X) < db0_T and abs(pt0_EndExtForce.Y - pt1_Node[j].Y) < db0_T and abs(pt0_EndExtForce.Z - pt1_Node[j].Z) < db0_T:
                     ln1_ExtForceClean.append(externalForces[k])
                     External_Forces_IDClean.append(externalForcesID[k])
                     int1_ExtForce.append(j)
@@ -272,7 +272,7 @@ if trailMembers and trailMembersID:
             if supports:
                 pt1_SupportClean.append(pln1_Trail[j][len(pln1_Trail[j])-1])
                 for i in xrange(len(supports)):
-                    if abs(pln1_Trail[j][0].X - supports[i].X) < int0_T and abs(pln1_Trail[j][0].Y - supports[i].Y) < int0_T and abs(pln1_Trail[j][0].Z - supports[i].Z) < int0_T:
+                    if abs(pln1_Trail[j][0].X - supports[i].X) < db0_T and abs(pln1_Trail[j][0].Y - supports[i].Y) < db0_T and abs(pln1_Trail[j][0].Z - supports[i].Z) < db0_T:
                         pt1_SupportClean[j] = pln1_Trail[j][0]
                         pln1_Trail[j].Reverse()
             else:
@@ -284,7 +284,7 @@ if trailMembers and trailMembersID:
         int1_Support = []
         for pt0_Support in supports:
             for i in xrange(len(pt1_Node)):
-                if abs(pt0_Support.X - pt1_Node[i].X) < int0_T and abs(pt0_Support.Y - pt1_Node[i].Y) < int0_T and abs(pt0_Support.Z - pt1_Node[i].Z) < int0_T:
+                if abs(pt0_Support.X - pt1_Node[i].X) < db0_T and abs(pt0_Support.Y - pt1_Node[i].Y) < db0_T and abs(pt0_Support.Z - pt1_Node[i].Z) < db0_T:
                     int1_Support.append(i)
                     break
         
@@ -297,7 +297,10 @@ if trailMembers and trailMembersID:
         for pln0_Trail in pln1_Trail:
             int1_TrailPoly = []
             for i in xrange(len(pln0_Trail)):
-                int1_TrailPoly.append(pt1_Node.IndexOf(pln0_Trail[i]))
+                for k in xrange(len(pt1_Node)):
+                    if abs(pln0_Trail[i].X - pt1_Node[k].X) < db0_T and abs(pln0_Trail[i].Y - pt1_Node[k].Y) < db0_T and abs(pln0_Trail[i].Z - pt1_Node[k].Z) < db0_T:
+                        int1_TrailPoly.append(k)
+                        break
             int2_TrailPoly.append(list(reversed(int1_TrailPoly)))
         
         dc2_ShortPath = {}
@@ -315,10 +318,10 @@ if trailMembers and trailMembersID:
         
         for i in xrange(len(pt1_Node)):
             for pln0_Trail in pln1_Trail:
-                if pln0_Trail.Contains(pt1_Node[i]):
-                    dc1_ShortPathDist[str(i)] = len(pln0_Trail) - pln0_Trail.IndexOf(pt1_Node[i])
-                    break
-        
+                for j in xrange(len(pln0_Trail)):
+                    if abs(pln0_Trail[j].X - pt1_Node[i].X) < db0_T and abs(pln0_Trail[j].Y - pt1_Node[i].Y) < db0_T and abs(pln0_Trail[j].Z - pt1_Node[i].Z) < db0_T:
+                        dc1_ShortPathDist[str(i)] = len(pln0_Trail) - j
+                        break
         
         # Define Sequences
         for key in dc1_ShortPathDist:
@@ -431,7 +434,7 @@ if trailMembers and trailMembersID:
         
         for key in dc1_NodeTrailOut:
             if key not in dc1_NodeTrailIn:
-                dc1_NodeTrailIn[key] = "L"#+str(key)
+                dc1_NodeTrailIn[key] = "L"
         
         # Deviation
         for key in dc2_Node:
