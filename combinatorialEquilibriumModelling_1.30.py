@@ -1,10 +1,10 @@
 """
 Calculate the structural model
     Inputs:
-        TPC: (topological diagram) The topological diagram used for the calculation of the structural model
-        selfWeight: (bool) Activate the self weight of the structure
-        yieldStress: (double) The yield stress of the structural members
-        specWeight: (double) The specific weight of the structural members
+        TP: (topological diagram) The topological diagram used for the calculation of the structural model
+        CPL: (constraintPlaneObject) The constraint planes and their Indices
+        N: (originnodeObject) The origin nodes and their Indices
+        SW: (selfWeightObject) The Activation of self weight of the structure and their yield stress and specific weight attributes.
     Outputs:
         M: (structural model) The calculated structural model (empty model on error)
     Remarks:
@@ -15,16 +15,19 @@ __author__    = ['Patrick Ole Ohlbrock','Pierluigi D''Acunto' ]
 __copyright__ = 'Copyright 2018 - Chair of Structural Design, ETH Zurich'
 __license__   = 'MIT License'
 __email__     = 'ohlbrock@arch.ethz.ch'
-__version__   = "1.20"
+__version__   = "1.30"
 
 """
-If you use the library of CEM in a project, please refer to the CEM GitHub repository:
-@misc{cem-dev,
-    title  = {{CEM}: Combinatorial Equilibrium Modeling},
-    author = {Patrick Ole Ohlbrock and Pierluigi D'Acunto},
-    note   = {https://github.com/OleOhlbrock/CEM},
-    year   = {2018},
+If you use the CEM library in a project, please refer to the GitHub repository: 
+
+@Misc{cem2018,
+author = {Ohlbrock, Patrick Ole and D'Acunto, Pierluigi},
+title = {{CEM: Combinatorial Equilibrium Modeling}},
+year = {2018},
+note = {Release 1.30},
+url = { http://github.com/OleOhlbrock/CEM },
 }
+
 """
 
 
