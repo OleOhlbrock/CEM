@@ -30,5 +30,7 @@ __Patrick Ole Ohlbrock__: Balancing Behaviours - Designing with Combinatorial Eq
 __Patrick Ole Ohlbrock, Joseph Schwartz__: Combinatorial Equilibrium Modelling, Proceedings of the International Association for Shell and Spatial Structures (IASS) Symposium - Future Visions, Amsterdam, 2015
 
 
+
 Acknowledgment:
+
 The authors would like to thank Giulio Piacentino (Robert McNeel & Associates) and Jean-Philippe Jasienski (UCLouvain) for their support in the development of the tool. Moreover, thanks go to the students that have actively tested the software and helped to improve it.
