@@ -31,7 +31,8 @@ __Patrick Ole Ohlbrock, Joseph Schwartz__: Combinatorial Equilibrium Modelling, 
 <br/>
 
 
+
 Acknowledgment:
-<br/>
+
 
 The authors would like to thank Giulio Piacentino (Robert McNeel & Associates) and Jean-Philippe Jasienski (UCLouvain) for their support in the development of the tool. Moreover, thanks go to the students that have actively tested the software and helped to improve it.
