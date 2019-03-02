@@ -15,7 +15,7 @@ __author__    = ['Patrick Ole Ohlbrock','Pierluigi D''Acunto' ]
 __copyright__ = 'Copyright 2018 - Chair of Structural Design, ETH Zurich'
 __license__   = 'MIT License'
 __email__     = 'ohlbrock@arch.ethz.ch'
-__version__   = "1.30"
+__version__   = "1.40"
 
 """
 If you use the CEM library in a project, please refer to the GitHub repository: 
@@ -24,7 +24,7 @@ If you use the CEM library in a project, please refer to the GitHub repository:
 author = {Ohlbrock, Patrick Ole and D'Acunto, Pierluigi},
 title = {{CEM: Combinatorial Equilibrium Modeling}},
 year = {2018},
-note = {Release 1.30},
+note = {Release 1.40},
 url = { http://github.com/OleOhlbrock/CEM },
 }
 
@@ -167,28 +167,19 @@ if trailMembers and trailMembersID:
         deviationMembersID = id1_DeviationClean
         
         # External Force
-        ln1_ExtForceClean = []
+        pt1_ExtForceClean = []
         External_Forces_IDClean = []
         for k in xrange(len(externalForces)):
-            pt0_StartExtForce = externalForces[k].From
-            pt0_EndExtForce = externalForces[k].To
             for i in xrange(len(pt1_Node)):
                 int1_ExtForce = []
-                if abs(pt0_StartExtForce.X - pt1_Node[i].X) < db0_T and abs(pt0_StartExtForce.Y - pt1_Node[i].Y) < db0_T and abs(pt0_StartExtForce.Z - pt1_Node[i].Z) < db0_T:
-                    ln1_ExtForceClean.append(externalForces[k])
+                if abs(externalForces[k].X - pt1_Node[i].X) < db0_T and abs(externalForces[k].Y - pt1_Node[i].Y) < db0_T and abs(externalForces[k].Z - pt1_Node[i].Z) < db0_T:
+                    pt1_ExtForceClean.append(externalForces[k])
                     External_Forces_IDClean.append(externalForcesID[k])
                     int1_ExtForce.append(i)
                     int2_ExtForce.append(int1_ExtForce)
                     break
-            for j in xrange(len(pt1_Node)):
-                if abs(pt0_EndExtForce.X - pt1_Node[j].X) < db0_T and abs(pt0_EndExtForce.Y - pt1_Node[j].Y) < db0_T and abs(pt0_EndExtForce.Z - pt1_Node[j].Z) < db0_T:
-                    ln1_ExtForceClean.append(externalForces[k])
-                    External_Forces_IDClean.append(externalForcesID[k])
-                    int1_ExtForce.append(j)
-                    int2_ExtForce.append(int1_ExtForce)
-                    break
         
-        externalForces = ln1_ExtForceClean
+        externalForces = pt1_ExtForceClean
         externalForcesID = External_Forces_IDClean
         
         

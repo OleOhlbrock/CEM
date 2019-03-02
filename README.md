@@ -8,7 +8,7 @@ If you use the CEM library in a project, please refer to the GitHub repository: 
   author = {Ohlbrock, Patrick Ole and D'Acunto, Pierluigi},<br/>
   title  = {{CEM: Combinatorial Equilibrium Modeling}},<br/>
   year   = {2018},<br/>
-  note   = {Release 1.30},<br/>
+  note   = {Release 1.20},<br/>
   url    = { http://github.com/OleOhlbrock/CEM },<br/>
 }<br/>
 
@@ -28,8 +28,3 @@ __Patrick Ole Ohlbrock, Joseph Schwartz__: Combinatorial Equilibrium Modeling, I
 __Patrick Ole Ohlbrock__: Balancing Behaviours - Designing with Combinatorial Equilibrium Models, Proceedings of the Design Modelling Symposium, Copenhagen, 2015
 
 __Patrick Ole Ohlbrock, Joseph Schwartz__: Combinatorial Equilibrium Modelling, Proceedings of the International Association for Shell and Spatial Structures (IASS) Symposium - Future Visions, Amsterdam, 2015
-
-
-
-<br>Acknowledgment:<br/>
-The authors would like to thank Giulio Piacentino (Robert McNeel & Associates) and Jean-Philippe Jasienski (UCLouvain) for their support in the development of the tool. Moreover, thanks go to the students that have actively tested the software and helped to improve it.

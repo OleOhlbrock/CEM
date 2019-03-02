@@ -15,7 +15,7 @@ __author__    = ['Patrick Ole Ohlbrock','Pierluigi D''Acunto' ]
 __copyright__ = 'Copyright 2018 - Chair of Structural Design, ETH Zurich'
 __license__   = 'MIT License'
 __email__     = 'ohlbrock@arch.ethz.ch'
-__version__   = "1.30"
+__version__   = "1.40"
 
 """
 If you use the CEM library in a project, please refer to the GitHub repository: 
@@ -24,7 +24,7 @@ If you use the CEM library in a project, please refer to the GitHub repository:
 author = {Ohlbrock, Patrick Ole and D'Acunto, Pierluigi},
 title = {{CEM: Combinatorial Equilibrium Modeling}},
 year = {2018},
-note = {Release 1.30},
+note = {Release 1.40},
 url = { http://github.com/OleOhlbrock/CEM },
 }
 
