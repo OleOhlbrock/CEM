@@ -1,6 +1,8 @@
 # CEM - Combinatorial Equilibrium Modelling
 
-CEM is a novel approach for the form-finding of mixed tension-compression spatial structure in static equilibrium. The CEM is developed by Patrick Ole Ohlbrock and Pierluigi D'Acunto at the Chair of Structural Design at the ETH Zürich (http://www.schwartz.arch.ethz.ch/).
+CEM is a novel approach to the form-finding of mixed tension-compression spatial structure in static equilibrium. The CEM is developed by Patrick Ole Ohlbrock and Pierluigi D'Acunto at the Chair of Structural Design at the ETH Zurich (http://www.schwartz.arch.ethz.ch/).
+
+The CEM library makes use of a .NET wrapper (https://github.com/BrannonKing/NLoptNet/ - MIT license) of the NLOpt C library for nonlinear optimization (https://nlopt.readthedocs.io/en/latest/ - LGPL license).
 
 If you use the CEM library, please refer to the official GitHub repository: <br/>
 
@@ -13,10 +15,8 @@ If you use the CEM library, please refer to the official GitHub repository: <br/
 }<br/>
 
 
-The CEM library makes use of a .NET wrapper (https://github.com/BrannonKing/NLoptNet/ - MIT license) of the NLOpt C library for nonlinear optimization (https://nlopt.readthedocs.io/en/latest/ - LGPL license).
 
-
-Publications related to the CEM project:
+Publications related to the CEM project include:
 
 __Patrick Ole Ohlbrock, Pierluigi D′Acunto, Jean-Philippe Jasienski__: Hierarchical form-finding with Combinatorial Equilibrium Modelling, Proceedings of the IASS Symposium 2018 - Creativity in Structural Design, Boston, 2018 
 
