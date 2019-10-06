@@ -20,6 +20,8 @@ Publications related to the CEM project include:
 
 __Patrick Ole Ohlbrock, Pierluigi D′Acunto, Jean-Philippe Jasienski__: Hierarchical form-finding with Combinatorial Equilibrium Modelling, Proceedings of the IASS Symposium 2018 - Creativity in Structural Design, Boston, 2018 
 
+__Pierluigi D'Acunto, Jean-Philippe Jasienski, Patrick Ole Ohlbrock, Corentin Fivet, Joseph Schwartz, Denis Zastavni__: Vector-based 3D graphic statics: A framework for the design of spatial structures based on the relation between form and forces, International Journal of Solids and Structures, 167, pp. 58-70, 2019.
+
 __Lukas Fuhrimann, Vahid Moosavi, Patrick Ole Ohlbrock, Pierluigi D′Acunto__: Data-Driven Design: Exploring new Structural Forms using Machine Learning and Graphic Statics, Proceedings of the IASS Symposium 2018 - Creativity in Structural Design, Boston, 2018
 
 __Patrick Ole Ohlbrock, Pierluigi D′Acunto, Jean-Philippe Jasienski, Corentin Fivet__: Constraint-Driven Design with Combinatorial Equilibrium Modelling, Proceedings of the IASS Annual Symposium 2017 - Interfaces: architecture engineering science, Hamburg 2017
