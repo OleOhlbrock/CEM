@@ -10,7 +10,7 @@ If you use the CEM library, please refer to the official GitHub repository: <br/
   author = {Ohlbrock, Patrick Ole and D'Acunto, Pierluigi},<br/>
   title  = {{CEM: Combinatorial Equilibrium Modeling}},<br/>
   year   = {2019},<br/>
-  note   = {Release 1.75},<br/>
+  note   = {Release 1.80},<br/>
   url    = { http://github.com/OleOhlbrock/CEM },<br/>
 }<br/>
 
