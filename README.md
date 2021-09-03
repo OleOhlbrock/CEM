@@ -6,11 +6,11 @@ The CEM library makes use of a .NET wrapper (https://github.com/BrannonKing/NLop
 
 If you use the CEM library, please refer to the official GitHub repository: <br/>
 
-@Misc{cem2019,<br/>
+@Misc{cem2021,<br/>
   author = {Ohlbrock, Patrick Ole and D'Acunto, Pierluigi},<br/>
   title  = {{CEM: Combinatorial Equilibrium Modeling}},<br/>
-  year   = {2019},<br/>
-  note   = {Release 1.80},<br/>
+  year   = {2021},<br/>
+  note   = {Release 2.00},<br/>
   url    = { http://github.com/OleOhlbrock/CEM },<br/>
 }<br/>
 
